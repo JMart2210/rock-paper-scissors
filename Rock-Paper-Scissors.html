@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // defines our 3 options, all in lowercase
+    const options = ['rock', 'paper', 'scissors'];
+//                                Picks 1 of our 3 options, at random
+    function getComputerChoice() {
+        return options[Math.floor(Math.random() * options.length)];
+    }
+// makes sure user input always returns 1 of our 3 options
+    function inputCheck(str) {
+        if (str.substr(0,1).toLowerCase() === 'r') {
+            return options[0];
+        } else if (str.substr(0,1).toLowerCase() === 'p') {
+            return options[1];
+        } else return options[2];
+    }
+    // evaluates winner, and returns congratulations message
+    function playRound(playerSelection, computerSelection) {
+        if (playerSelection == computerSelection) {
+            return "It's a draw! Choose again...";
+        }   else if (playerSelection == 'rock' && computerSelection == 'paper') {
+                return "You lose! Paper beats Rock";
+            }   else if (playerSelection == 'rock' && computerSelection == 'scissors') {
+                   return "You win! Rock beats Scissors";
+            }   else if (playerSelection == 'paper' && computerSelection == 'rock') {
+                    return "You win! Paper beats Rock!";
+            }   else if (playerSelection == 'paper' && computerSelection == 'scissors') {
+                    return "You lose! Scissors beats Paper";
+            }   else if (playerSelection == 'scissors' && computerSelection == 'rock') {
+                    return "You lose! Rock beats Scissors";
+            }   else return "You win! Scissors beats Paper";
+    }
+        //
+    function game() {
+        let keepGoing = true, userWins = 0, compWins = 0;
+        while (keepGoing) {
+            let playerSelection = inputCheck( prompt("Rock, Paper, or Scissors?"));
+            let response = playRound(playerSelection, getComputerChoice());
+            response.includes("win") ?  userWins++ : 
+                response.includes("lose") ? compWins++ : keepGoing;
+            userWins > 2 || compWins > 2 ? keepGoing = false: keepGoing ;
+            alert(response + "\n Score - Computer: " + compWins + " You: " + userWins);
+        }
+    }
+    
+    game();
+</script>
+</html>

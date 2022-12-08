@@ -1,0 +1,11 @@
+.buttons {
+    display: flex;
+    padding: 50px;
+    gap: 50px;
+}
+
+button {
+    flex: 1;
+    height: 100px;
+    cursor: pointer;
+}

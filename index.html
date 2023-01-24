@@ -1,83 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock-Paper-Scissors</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="buttons">
-        <button id="rock">Rock</button>    
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
     </div>
     <div class="messageBoard">
-        <p class="gameResults"></p>
-        <p class="scoreBoard"></p>
+      <p class="gameResults"></p>
+      <p class="scoreBoard"></p>
     </div>
-</body>
+  </body>
 
-<script>
+  <script>
     // defines our 3 options, all in lowercase and set win count to zero.
-    const options = ['rock', 'paper', 'scissors'];
-    let userWins = 0, compWins = 0;
-    
-//  Picks 1 of our 3 options for computer, at random
+    const options = ["rock", "paper", "scissors"];
+    let userWins = 0,
+      compWins = 0;
+
+    //  Picks 1 of our 3 options for computer, at random
     function getComputerChoice() {
-        return options[Math.floor(Math.random() * options.length)];
+      return options[Math.floor(Math.random() * options.length)];
     }
 
     // evaluates winner, updates win count, and returns a message with the results.
     function playRound(playerSelection, computerSelection) {
-        if (playerSelection === computerSelection) return "It's a draw! Choose again...";
-        if ((playerSelection === 'rock' && computerSelection === 'paper') ||
-            (playerSelection === 'paper' && computerSelection === 'scissors') ||
-            (playerSelection === 'scissors' && computerSelection === 'rock')) {
-                compWins++;
-                return "You lose! "+computerSelection+" beats "+playerSelection+".";
-        } else {
-            userWins++;
-            return "You win! "+playerSelection+" beats "+computerSelection+".";
-        }
+      if (playerSelection === computerSelection)
+        return "It's a draw! Choose again...";
+      if (
+        (playerSelection === "rock" && computerSelection === "paper") ||
+        (playerSelection === "paper" && computerSelection === "scissors") ||
+        (playerSelection === "scissors" && computerSelection === "rock")
+      ) {
+        compWins++;
+        return (
+          "You lose! " + computerSelection + " beats " + playerSelection + "."
+        );
+      } else {
+        userWins++;
+        return (
+          "You win! " + playerSelection + " beats " + computerSelection + "."
+        );
+      }
     }
 
     // call this function to check if someone has won. If so, it updates
     // the messageBoard and resets win count so you can start play again.
     function gameOver() {
-        if (compWins === 5) {
-        gameResults.textContent ="I'm sorry. Today the computer has won.";
-        scoreBoard.textContent = "You lost "+userWins+" to "+compWins;
-        compWins = 0, userWins = 0;
-    }
-    if (userWins === 5) {
+      if (compWins === 5) {
+        gameResults.textContent = "I'm sorry. Today the computer has won.";
+        scoreBoard.textContent = "You lost " + userWins + " to " + compWins;
+        (compWins = 0), (userWins = 0);
+      }
+      if (userWins === 5) {
         gameResults.textContent = "Congrats! You are truly the superior mind.";
-        scoreBoard.textContent = "You won "+userWins+" to "+compWins;
-        compWins = 0, userWins = 0;
-    }
+        scoreBoard.textContent = "You won " + userWins + " to " + compWins;
+        (compWins = 0), (userWins = 0);
+      }
     }
 
     // updates message board with results and current win count.
     // then checks whether someone has won the game
     function updateMessageBoard(response) {
-        gameResults.textContent = response;
-        scoreBoard.textContent = "You: "+userWins+" Computer: "+compWins;
-        gameOver();
+      gameResults.textContent = response;
+      scoreBoard.textContent = "You: " + userWins + " Computer: " + compWins;
+      gameOver();
     }
-            
-    const buttons = document.querySelectorAll('button');
-    const messageBoard = document.querySelector('.messageBoard');
-    const gameResults = document.querySelector('.gameResults');
-    const scoreBoard = document.querySelector('.scoreBoard');
-    
+
+    const buttons = document.querySelectorAll("button");
+    const messageBoard = document.querySelector(".messageBoard");
+    const gameResults = document.querySelector(".gameResults");
+    const scoreBoard = document.querySelector(".scoreBoard");
+
     // adds event listener on click of button. Arrow function then
     // gets result of round selection and updates message board.
-    buttons.forEach(button => button.addEventListener('click', () => { 
+    buttons.forEach((button) =>
+      button.addEventListener("click", () => {
         let response = playRound(button.id, getComputerChoice());
         updateMessageBoard(response);
-    }));
-    
-    
-</script>
+      })
+    );
+  </script>
 </html>
